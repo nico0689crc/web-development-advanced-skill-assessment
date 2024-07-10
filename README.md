@@ -15,3 +15,7 @@
 - php artisan make:seeder MemberSeeder
 
 
+- php artisan vendor:publish --tag=laravel-pagination
+
+
+
