@@ -18,11 +18,11 @@
                     <div class="bg-white shadow-md rounded-lg overflow-hidden">
                         <div class="p-6">
                             <h2 class="text-xl font-bold mb-2">{{ $member->first_name }} {{ $member->last_name }}</h2>
-                            <p class="text-gray-700 mb-2">Age: {{ $member->age }}</p>
-                            <p class="text-gray-700 mb-2">Email: {{ $member->email }}</p>
-                            <p class="text-gray-700 mb-2">Phone: {{ $member->phone }}</p>
-                            <p class="text-gray-700 mb-2">Address: {{ $member->address }}</p>
-                            <p class="text-gray-700 mb-4">Professional Summary: {{ $member->professional_summary }}</p>
+                            <p class="text-gray-700 mb-2 line-clamp-1">Age: {{ $member->age }}</p>
+                            <p class="text-gray-700 mb-2 line-clamp-1">Email: {{ $member->email }}</p>
+                            <p class="text-gray-700 mb-2 line-clamp-1">Phone: {{ $member->phone }}</p>
+                            <p class="text-gray-700 mb-2 line-clamp-1">Address: {{ $member->address }}</p>
+                            <p class="text-gray-700 mb-4 line-clamp-4">Professional Summary: {{ $member->professional_summary }}</p>
                             <div class="flex justify-between items-center">
                                 <a href="{{ route('members.show', $member->id) }}" class="text-blue-500">Show</a>
                                 <a href="{{ route('members.edit', $member->id) }}" class="text-yellow-500">Edit</a>
