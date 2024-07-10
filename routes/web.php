@@ -1,15 +1,13 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\MemberController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [MemberController::class, 'index'])->name('members.index');
+    Route::resource('members', MemberController::class);
 });
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
