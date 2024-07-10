@@ -10,7 +10,6 @@ class MemberController extends Controller
     public function index()
     {
         $members = Member::paginate(9);
-        
         return view('members.index', compact('members'));
     }
 
@@ -31,8 +30,9 @@ class MemberController extends Controller
         return redirect()->route('members.index')->with('success', 'Member created successfully.');
     }
 
-    public function show(Member $member)
+    public function showByUuid($uuid)
     {
+        $member = Member::where('uuid', $uuid)->firstOrFail();
         return view('members.show', compact('member'));
     }
 
