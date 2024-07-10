@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="font-semibold text-xl text-indigo-800 leading-tight">
             {{ __('New member') }}
         </h2>
     </x-slot>
@@ -11,7 +11,7 @@
 
                 <section class="flex flex-col gap-4">
                     <header>
-                        <h2 class="text-lg font-medium text-gray-900">
+                        <h2 class="text-lg font-medium text-indigo-700">
                             {{ __('New member') }}
                         </h2>
                 
@@ -61,7 +61,7 @@
 
                         <div class="flex flex-col gap-1 col-span-4">
                             <x-input-label for="professional_summary" :value="__('Professional Summary')" />
-                            <x-text-area id="professional_summary" name="professional_summary" type="text" class="w-full" value="{{ old('professional_summary') }}" />
+                            <x-text-area id="professional_summary" name="professional_summary" type="text" class="w-full" :value="old('professional_summary')" />
                             <x-input-error :messages="$errors->get('professional_summary')" class="mt-2" />
                         </div>
                         <div class="flex items-center gap-4">
