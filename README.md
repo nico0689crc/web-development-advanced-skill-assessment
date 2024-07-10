@@ -1,5 +1,5 @@
 ## Steps
-
+- create .env file
 - composer install
 - npm install
 - npm run build
