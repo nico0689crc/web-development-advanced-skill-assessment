@@ -19,22 +19,36 @@
                         <div class="flex flex-col gap-2">
                             <div class="flex items-center">
                                 <h2 class="flex-grow text-xl font-bold line-clamp-1">{{ $member->first_name }} {{ $member->last_name }}</h2>
-                                <div x-data="{ open: false }" class="relative inline-block text-left">
-                                    <button @click="open = ! open" type="button" class="text-indigo-600 rounded-full p-2 hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-100 focus:ring-indigo-500" id="options-menu" aria-haspopup="true" aria-expanded="true">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256"><path fill="currentColor" d="M156 128a28 28 0 1 1-28-28a28 28 0 0 1 28 28m-28-52a28 28 0 1 0-28-28a28 28 0 0 0 28 28m0 104a28 28 0 1 0 28 28a28 28 0 0 0-28-28"/></svg>
-                                    </button>
-                                    <div x-show="open" @click.away="open = false" class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg border border-indigo-300 bg-white ring-1 ring-black ring-opacity-5">
-                                        <div class="divide-y divide-solid divide-indigo-200" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                                            <a href="{{ route('members.show', $member->id) }}" class="block px-4 py-2 text-sm text-indigo-700 hover:bg-indigo-100" role="menuitem">Show</a>
-                                            <a href="{{ route('members.edit', $member->id) }}" class="block px-4 py-2 text-sm text-indigo-700 hover:bg-indigo-100" role="menuitem">Edit</a>
-                                            <form action="{{ route('members.destroy', $member->id) }}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="w-full text-left block px-4 py-2 text-sm text-indigo-700 hover:bg-indigo-100" role="menuitem">Delete</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
+
+
+                                <x-dropdown align="right" width="48">
+                                    <x-slot name="trigger">
+                                        <button type="button" class="text-indigo-600 rounded-full p-2 hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-100 focus:ring-indigo-500" id="options-menu" aria-haspopup="true" aria-expanded="true">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256"><path fill="currentColor" d="M156 128a28 28 0 1 1-28-28a28 28 0 0 1 28 28m-28-52a28 28 0 1 0-28-28a28 28 0 0 0 28 28m0 104a28 28 0 1 0 28 28a28 28 0 0 0-28-28"/></svg>
+                                        </button>
+                                    </x-slot>
+                
+                                    <x-slot name="content">
+                                        <x-dropdown-link :href="route('members.show', $member->uuid)">
+                                            {{ __('Show') }}
+                                        </x-dropdown-link>
+
+                                        <x-dropdown-link :href="route('members.edit', $member->uuid)">
+                                            {{ __('Edit') }}
+                                        </x-dropdown-link>
+                
+                                        <!-- Authentication -->
+                                        <form method="POST" action="{{ route('members.destroy', $member->uuid) }}">
+                                            @csrf
+                                            @method('DELETE')
+                                            <x-dropdown-link :href="route('members.destroy', $member->uuid)"
+                                                    onclick="event.preventDefault();
+                                                                this.closest('form').submit();">
+                                                {{ __('Delete') }}
+                                            </x-dropdown-link>
+                                        </form>
+                                    </x-slot>
+                                </x-dropdown>
                             </div>
                             <div class="flex gap-1">
                                 <span class="text-base font-medium">Age:</span>

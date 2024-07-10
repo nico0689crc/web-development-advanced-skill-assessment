@@ -17,6 +17,21 @@ class Member extends Model
         'phone',
         'address',
         'professional_summary',
-        'genere'
+        'uuid',
     ];
+
+        /**
+     * Boot function from Laravel.
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        // Automatically generate a UUID for new members
+        static::creating(function ($model) {
+            if (empty($model->uuid)) {
+                $model->uuid = (string) \Illuminate\Support\Str::uuid();
+            }
+        });
+    }
 }
