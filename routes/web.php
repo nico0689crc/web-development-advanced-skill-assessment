@@ -2,10 +2,12 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\AboutUsController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/', [MemberController::class, 'index'])->name('members.index');
+    Route::get('/about-us', [AboutUsController::class, 'index'])->name('about-us');
     Route::resource('members', MemberController::class);
 });
 
