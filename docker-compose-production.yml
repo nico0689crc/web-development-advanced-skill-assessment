@@ -51,4 +51,4 @@ networks:
     driver: bridge
 
 volumes:
-  quctcrdevb:
+  ctc-prod-db:
