@@ -34,18 +34,16 @@ COPY --from=composer:2.5 /usr/bin/composer /usr/bin/composer
 FROM base AS development
 
 # Install additional PHP extensions for development
-RUN pecl install xdebug \
-  && docker-php-ext-enable xdebug
+RUN pecl install xdebug && docker-php-ext-enable xdebug
 
 # Copy existing application directory contents
-COPY . /var/www
+COPY . .
 
 # Set permissions for the Laravel storage and cache directories
 RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
 
 # Install dependencies
-RUN composer install --prefer-dist --no-scripts --no-autoloader && \
-  composer dump-autoload --optimize
+RUN composer install --prefer-dist --no-scripts --no-autoloader && composer dump-autoload --optimize
 
 # Copy the entrypoint script
 COPY ./docker-entrypoint.sh /usr/local/bin/
@@ -66,18 +64,14 @@ CMD ["php", "artisan", "serve", "--port=3000", "--host=0.0.0.0"]
 # Stage 3: Production Stage
 FROM base AS production
 
-# Set environment variable
-ENV APP_ENV=production
-
 # Copy existing application directory contents
-COPY . /var/www
+COPY . .
 
 # Set permissions for the Laravel storage and cache directories
 RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
 
 # Install dependencies
-RUN composer install --no-dev --optimize-autoloader && \
-  composer dump-autoload --optimize
+RUN composer install --no-dev --optimize-autoloader && composer dump-autoload --optimize
 
 # Copy the entrypoint script
 COPY ./docker-entrypoint.sh /usr/local/bin/

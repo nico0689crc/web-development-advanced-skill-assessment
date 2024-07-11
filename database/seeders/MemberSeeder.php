@@ -13,6 +13,11 @@ class MemberSeeder extends Seeder
      */
     public function run(): void
     {
-        Member::factory()->count(100)->create();
+        $memberCount = Member::count();
+        
+        if($memberCount == 0 && !app()->environment('production'))
+        {
+            Member::factory()->count(100)->create();
+        }
     }
 }

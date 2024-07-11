@@ -4,7 +4,7 @@
 php artisan migrate --force
 
 # Run Laravel seeders
-php artisan db:seed
+php artisan db:seed --force
 
 # Start the PHP-FPM server
 # By default containers start in bridge network, inside which the host available by the address 0.0.0.0.
