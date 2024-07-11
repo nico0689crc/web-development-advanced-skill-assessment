@@ -21,7 +21,7 @@ class DefaultUserSeeder extends Seeder
                 'name' => 'User Demo',
                 'email' => 'user@demo.com',
                 'email_verified_at' => now(),
-                'password' => 'user@!democom', // Use a secure password for production
+                'password' => 'user@!democom'
             ]);
         }
     }

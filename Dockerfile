@@ -44,8 +44,15 @@ RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
 RUN composer install --prefer-dist --no-scripts --no-autoloader && \
   composer dump-autoload --optimize
 
-# Expose port 9000 and start php-fpm server
+# Copy the entrypoint script
+COPY ./docker-entrypoint.sh /usr/local/bin/
+
+# Make the entrypoint script executable
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
 EXPOSE 9000
+
+ENTRYPOINT ["docker-entrypoint.sh"]
 
 CMD ["php-fpm"]
 
@@ -75,4 +82,5 @@ RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 EXPOSE 9000
 
 ENTRYPOINT ["docker-entrypoint.sh"]
+
 CMD ["php-fpm"]

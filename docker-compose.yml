@@ -20,7 +20,7 @@ services:
       - ctc-app-network-dev
   #########################################
   #   Setup Laravel App container
-  #########################################
+  ######################################### 
   app:
     depends_on:
       - database
@@ -31,7 +31,7 @@ services:
       target: development
     volumes:
       - .:/var/www
-      - ./docker-entrypoint.sh:/usr/local/bin/docker-entrypoint.sh
+      - ./docker-entrypoint.sh:/usr/local/bin/docker-entrypoint.sh:ro
     ports:
       - "${APPLICATION_HOST_PORT}:${APPLICATION_CONTAINER_PORT}"
     environment:

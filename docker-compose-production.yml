@@ -25,10 +25,10 @@ services:
     depends_on:
       - database
     container_name: ctc-app-prod
-    image: ${DOCKER_HUB_USERNAME}/${DOCKER_HUB_APP_IMAGE}:dev
+    image: ${DOCKER_HUB_USERNAME}/${DOCKER_HUB_APP_IMAGE}:prod
     build:
       context: .
-      target: development
+      target: production
     volumes:
       - .:/var/www
       - ./docker-entrypoint.sh:/usr/local/bin/docker-entrypoint.sh
