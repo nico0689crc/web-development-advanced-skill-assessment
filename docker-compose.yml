@@ -35,7 +35,6 @@ services:
     ports:
       - "${APPLICATION_HOST_PORT}:${APPLICATION_CONTAINER_PORT}"
     environment:
-      - APP_ENV=${APP_ENV}
       - APP_NAME=${APP_NAME}
       - DB_CONNECTION=${DB_CONNECTION}
       - DB_HOST=${DB_HOST}

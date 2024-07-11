@@ -33,6 +33,8 @@ COPY --from=composer:2.5 /usr/bin/composer /usr/bin/composer
 # Stage 2: Development Stage
 FROM base AS development
 
+ENV APP_ENV=local
+
 # Install additional PHP extensions for development
 RUN pecl install xdebug && docker-php-ext-enable xdebug
 
@@ -63,6 +65,8 @@ CMD ["php", "artisan", "serve", "--port=3000", "--host=0.0.0.0"]
 
 # Stage 3: Production Stage
 FROM base AS production
+
+ENV APP_ENV=production
 
 # Copy existing application directory contents
 COPY . .

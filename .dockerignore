@@ -9,7 +9,6 @@ storage/logs/*
 vendor
 node_modules
 
-*/.env
 .git
 .gitignore
 .dockerignore
