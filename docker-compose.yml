@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  #########################################
+  #   Setup Database container
+  #########################################
+  database:
+    container_name: ctc-database-dev
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "${MYSQL_HOST_PORT}:${DB_PORT}"
+    volumes:
+      - ctc-dev-db:/var/lib/mysql
+    networks:
+      - ctc-app-network-dev
+  #########################################
+  #   Setup Laravel App container
+  #########################################
+  app:
+    depends_on:
+      - database
+    container_name: ctc-app-dev
+    image: ${DOCKER_HUB_USERNAME}/${DOCKER_HUB_APP_IMAGE}:dev
+    build:
+      context: .
+      target: development
+    volumes:
+      - .:/var/www
+      - ./docker-entrypoint.sh:/usr/local/bin/docker-entrypoint.sh
+    ports:
+      - "9000:9000"
+    environment:
+      - APP_ENV=${APP_ENV}
+      - APP_NAME=${APP_NAME}
+      - DB_CONNECTION=${DB_CONNECTION}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_DATABASE=${DB_DATABASE}
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+    networks:
+      - ctc-app-network-dev
+
+networks:
+  ctc-app-network-dev:
+    driver: bridge
+
+volumes:
+  quctcrdevb:
