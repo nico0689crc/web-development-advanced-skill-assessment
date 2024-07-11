@@ -20,6 +20,8 @@ RUN apt-get update && apt-get install -y \
   libonig-dev \
   libzip-dev \
   libpq-dev \
+  nodejs \
+  npm \
   supervisor \
   && docker-php-ext-install pdo pdo_mysql mbstring zip exif pcntl \
   && docker-php-ext-configure gd --with-freetype --with-jpeg \
@@ -45,17 +47,23 @@ RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
 RUN composer install --prefer-dist --no-scripts --no-autoloader && \
   composer dump-autoload --optimize
 
+
+
 # Copy the entrypoint script
 COPY ./docker-entrypoint.sh /usr/local/bin/
 
 # Make the entrypoint script executable
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
-EXPOSE 9000
+RUN npm ci
+
+RUN npm run build
+
+EXPOSE 3000
 
 ENTRYPOINT ["docker-entrypoint.sh"]
 
-CMD ["php-fpm"]
+CMD ["php", "artisan", "serve", "--port=3000", "--host=0.0.0.0"]
 
 # Stage 3: Production Stage
 FROM base AS production
@@ -79,9 +87,13 @@ COPY ./docker-entrypoint.sh /usr/local/bin/
 # Make the entrypoint script executable
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
-# Expose port 9000 and start php-fpm server
-EXPOSE 9000
+RUN npm ci
+
+RUN npm run build
+
+# Expose port 3000 and start php-fpm server
+EXPOSE 3000
 
 ENTRYPOINT ["docker-entrypoint.sh"]
 
-CMD ["php-fpm"]
+CMD ["php", "artisan", "serve", "--port=3000", "--host=0.0.0.0"]
