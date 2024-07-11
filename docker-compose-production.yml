@@ -6,7 +6,7 @@ services:
   #########################################
   database:
     container_name: ctc-database-prod
-    image: mysql:8.0
+    image: mysql:8.3.0
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
       MYSQL_DATABASE: ${DB_DATABASE}
@@ -31,7 +31,7 @@ services:
       target: production
     volumes:
       - .:/var/www
-      - ./docker-entrypoint.sh:/usr/local/bin/docker-entrypoint.sh
+      - ./docker-entrypoint.sh:/usr/local/bin/docker-entrypoint.sh:ro
     ports:
       - "${APPLICATION_HOST_PORT}:${APPLICATION_CONTAINER_PORT}"
     environment:
