@@ -33,7 +33,7 @@ services:
       - .:/var/www
       - ./docker-entrypoint.sh:/usr/local/bin/docker-entrypoint.sh
     ports:
-      - "9000:9000"
+      - "${APPLICATION_HOST_PORT}:${APPLICATION_CONTAINER_PORT}"
     environment:
       - APP_ENV=${APP_ENV}
       - APP_NAME=${APP_NAME}
