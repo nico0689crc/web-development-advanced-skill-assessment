@@ -1,18 +1,32 @@
-# Versioning and metadata
-.git
-.gitignore
-.dockerignore
+bootstrap/cache/services.php
 
-# Build dependencies
-node_modules
-vendor
+storage/app/*
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/views/*
+storage/logs/*
 
-# Environment (contains sensitive data)
-.env
-.env.production
-.env.example
+vendor/**/test*
+vendor/**/tests*
+vendor/**/Tests*
 
-# Files not required for production
-.editorconfig
+**/*node_modules
+
+**.git
+.idea
+**.gitignore
+**.gitattributes
+**.sass-cache
+
+*.config.js
+?ulpfile.js
+?untfile.js
+package.json
+phpunit.xml
+readme.md
+phpspec.yml
+
 Dockerfile
-README.md
+docker-compose.yml
+run
+run.ps1

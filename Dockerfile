@@ -19,8 +19,9 @@ RUN apt-get update && apt-get install -y \
   curl \
   libonig-dev \
   libzip-dev \
+  libpq-dev \
   supervisor \
-  && docker-php-ext-install pdo mbstring zip exif pcntl \
+  && docker-php-ext-install pdo pdo_mysql mbstring zip exif pcntl \
   && docker-php-ext-configure gd --with-freetype --with-jpeg \
   && docker-php-ext-install gd
 
