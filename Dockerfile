@@ -1,28 +1,25 @@
 # Stage 1: Base Stage
-FROM php:8.2-fpm AS base
+FROM php:8.2-fpm-alpine AS base
 
 # Set working directory
 WORKDIR /var/www
 
 # Install system dependencies
-RUN apt-get update && apt-get install -y \
-  build-essential \
+RUN apk update && apk add --no-cache \
+  bash \
+  build-base \
+  autoconf \
+  linux-headers \
+  freetype-dev \
+  jpeg-dev \
   libpng-dev \
-  libjpeg62-turbo-dev \
-  libfreetype6-dev \
-  locales \
-  zip \
-  jpegoptim optipng pngquant gifsicle \
-  vim \
-  unzip \
-  git \
-  curl \
-  libonig-dev \
   libzip-dev \
-  libpq-dev \
   nodejs \
   npm \
   supervisor \
+  git \
+  curl \
+  oniguruma-dev \
   && docker-php-ext-install pdo pdo_mysql mbstring zip exif pcntl \
   && docker-php-ext-configure gd --with-freetype --with-jpeg \
   && docker-php-ext-install gd
