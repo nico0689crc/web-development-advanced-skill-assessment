@@ -12,16 +12,19 @@ class DefaultUserSeeder extends Seeder
      * Run the database seeds.
      */
     public function run(): void
-    {
-        $user = User::where('email', 'user@demo.com')->first();
-        echo isset($user);
+    {   
+        $userName = env('APPLICATION_USERNAME');
+        $email = env('APPLICATION_EMAIL');
+        $password = env('APPLICATION_PASSWORD');
+
+        $user = User::where('email', $email)->first();
 
         if(!$user){
             User::factory()->create([
-                'name' => 'User Demo',
-                'email' => 'user@demo.com',
+                'name' => $userName,
+                'email' => $email,
                 'email_verified_at' => now(),
-                'password' => 'user@!democom'
+                'password' => $password
             ]);
         }
     }
