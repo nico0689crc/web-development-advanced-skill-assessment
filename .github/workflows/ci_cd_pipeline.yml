@@ -122,6 +122,11 @@ jobs:
           echo ${{env.SHH_USER_PASSWORD}} | sudo -S docker run --rm -d \
             -p ${{env.BACKEND_HOST_PORT}}:${{env.BACKEND_CONTAINER_PORT}} \
             -e BACKEND_CONTAINER_PORT=${{env.BACKEND_CONTAINER_PORT}} \
+            -e APP_ENV=${{env.APP_ENV}} \
+            -e APP_DEBUG=${{env.APP_DEBUG}} \
+            -e APP_KEY=${{env.APP_KEY}} \
+            -e APP_NAME=${{env.APP_NAME}} \
+            -e DB_CONNECTION=${{env.DB_CONNECTION}} \
             --name ${{env.DOCKER_BACKEND_CONTAINER_NAME}} \
             --network ${{env.DOCKER_NETWORK_NAME}} \
             ${{env.DOCKER_IMAGE}}:${{env.DOCKER_IMAGE_VERSION_BACKEND}}
