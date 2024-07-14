@@ -118,6 +118,11 @@ jobs:
         run: echo ${{env.SHH_USER_PASSWORD}} | sudo -S docker pull ${{env.DOCKER_IMAGE}}:${{env.DOCKER_IMAGE_VERSION_BACKEND}}
 
       - name: Run Docker Container
-        run: echo ${{env.SHH_USER_PASSWORD}} | sudo -S docker run --rm -d ${{env.DOCKER_IMAGE}}:${{env.DOCKER_IMAGE_VERSION_BACKEND}}
+        run: |
+          echo ${{env.SHH_USER_PASSWORD}} | sudo -S docker run --rm -d \
+            -p ${{env.BACKEND_HOST_PORT}}:${{env.BACKEND_CONTAINER_PORT}} \
+            --name ${{env.DOCKER_BACKEND_CONTAINER_NAME}} \
+            --network ${{env.DOCKER_NETWORK_NAME}} \
+            ${{env.DOCKER_IMAGE}}:${{env.DOCKER_IMAGE_VERSION_BACKEND}}
 
 
