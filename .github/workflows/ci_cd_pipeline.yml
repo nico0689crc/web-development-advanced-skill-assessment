@@ -114,8 +114,7 @@ jobs:
 
       - name: Run Docker Container
         run: |
-          echo ${{env.SHH_USER_PASSWORD}} | sudo -S docker run --rm -d \
-            -p ${{env.BACKEND_HOST_PORT}}:${{env.BACKEND_CONTAINER_PORT}} \
+          echo ${{env.SHH_USER_PASSWORD}} | sudo -S docker run --rm -d -p ${{env.BACKEND_HOST_PORT}}:${{env.BACKEND_CONTAINER_PORT}} \
             -e BACKEND_CONTAINER_PORT=${{env.BACKEND_CONTAINER_PORT}} \
             -e APP_ENV=production \
             -e APP_DEBUG=false \
