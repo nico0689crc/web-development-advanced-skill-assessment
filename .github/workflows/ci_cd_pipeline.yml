@@ -127,6 +127,14 @@ jobs:
             -e APP_KEY=${{env.APP_KEY}} \
             -e APP_NAME=${{env.APP_NAME}} \
             -e DB_CONNECTION=${{env.DB_CONNECTION}} \
+            -e DB_HOST=${{env.MYSQL_HOST}} \
+            -e DB_PORT=${{env.MYSQL_PORT}} \
+            -e DB_DATABASE=${{env.MYSQL_DATABASE}} \
+            -e DB_USERNAME=${{env.MYSQL_USER}} \
+            -e DB_PASSWORD=${{env.MYSQL_PASSWORD}} \
+            -e APPLICATION_USERNAME=${{env.APPLICATION_USERNAME}} \
+            -e APPLICATION_EMAIL=${{env.APPLICATION_EMAIL}} \
+            -e APPLICATION_PASSWORD=${{env.APPLICATION_PASSWORD}} \
             --name ${{env.DOCKER_BACKEND_CONTAINER_NAME}} \
             --network ${{env.DOCKER_NETWORK_NAME}} \
             ${{env.DOCKER_IMAGE}}:${{env.DOCKER_IMAGE_VERSION_BACKEND}}
