@@ -1,4 +1,5 @@
 #!/bin/sh
+php artisan key:generate
 
 # Run Laravel migrations
 php artisan migrate --force
