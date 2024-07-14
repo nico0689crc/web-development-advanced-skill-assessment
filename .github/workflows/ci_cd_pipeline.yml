@@ -113,24 +113,6 @@ jobs:
         run: echo ${{env.SHH_USER_PASSWORD}} | sudo -S docker pull ${{env.DOCKER_IMAGE}}:${{env.DOCKER_IMAGE_VERSION_BACKEND}}
 
       - name: Run Docker Container
-        run: |
-          echo ${{env.SHH_USER_PASSWORD}} | sudo -S docker run --rm -d -p ${{env.BACKEND_HOST_PORT}}:${{env.BACKEND_CONTAINER_PORT}} \
-            -e BACKEND_CONTAINER_PORT=${{env.BACKEND_CONTAINER_PORT}} \
-            -e APP_ENV=production \
-            -e APP_DEBUG=false \
-            -e APP_KEY=${{env.APP_KEY}} \
-            -e APP_NAME='Career Training College (CTC)' \
-            -e DB_CONNECTION=mysql \
-            -e DB_HOST=${{env.MYSQL_HOST}} \
-            -e DB_PORT=${{env.MYSQL_PORT}} \
-            -e DB_DATABASE=${{env.MYSQL_DATABASE}} \
-            -e DB_USERNAME=${{env.MYSQL_USER}} \
-            -e DB_PASSWORD=${{env.MYSQL_PASSWORD}} \
-            -e APPLICATION_USERNAME=${{env.APPLICATION_USERNAME}} \
-            -e APPLICATION_EMAIL=${{env.APPLICATION_EMAIL}} \
-            -e APPLICATION_PASSWORD=${{env.APPLICATION_PASSWORD}} \
-            --name ${{env.DOCKER_BACKEND_CONTAINER_NAME}} \
-            --network ${{env.DOCKER_NETWORK_NAME}} \
-            ${{env.DOCKER_IMAGE}}:${{env.DOCKER_IMAGE_VERSION_BACKEND}}
+        run: echo ${{env.SHH_USER_PASSWORD}} | sudo -S docker run --rm -d  -p ${{env.BACKEND_HOST_PORT}}:${{env.BACKEND_CONTAINER_PORT}} -e BACKEND_CONTAINER_PORT=${{env.BACKEND_CONTAINER_PORT}} -e APP_ENV=production -e APP_DEBUG=false -e APP_KEY=${{env.APP_KEY}} -e APP_NAME='Career Training College (CTC)' -e DB_CONNECTION=mysql -e DB_HOST=${{env.MYSQL_HOST}} -e DB_PORT=${{env.MYSQL_PORT}} -e DB_DATABASE=${{env.MYSQL_DATABASE}} -e DB_USERNAME=${{env.MYSQL_USER}} -e DB_PASSWORD=${{env.MYSQL_PASSWORD}} -e APPLICATION_USERNAME=${{env.APPLICATION_USERNAME}} -e APPLICATION_EMAIL=${{env.APPLICATION_EMAIL}} -e APPLICATION_PASSWORD=${{env.APPLICATION_PASSWORD}} --name ${{env.DOCKER_BACKEND_CONTAINER_NAME}}   --network ${{env.DOCKER_NETWORK_NAME}}  ${{env.DOCKER_IMAGE}}:${{env.DOCKER_IMAGE_VERSION_BACKEND}}
 
 
