@@ -1,4 +1,7 @@
+####################################
 # Stage 1: Base Stage
+####################################
+
 FROM php:8.2-fpm-alpine AS base
 
 # Set working directory
@@ -27,7 +30,10 @@ RUN apk update && apk add --no-cache \
 # Install Composer
 COPY --from=composer:2.5 /usr/bin/composer /usr/bin/composer
 
+####################################
 # Stage 2: Dependencies Stage
+####################################
+
 FROM base AS dependencies
 
 # Copy composer.json and composer.lock
@@ -42,7 +48,10 @@ COPY package.json package-lock.json ./
 # Install NPM dependencies
 RUN npm ci
 
+####################################
 # Stage 3: Development Stage
+####################################
+
 FROM base AS development
 
 ENV APP_ENV=local
@@ -78,7 +87,10 @@ ENTRYPOINT ["docker-entrypoint.sh"]
 
 CMD ["php", "artisan", "serve", "--port=3000", "--host=0.0.0.0"]
 
+####################################
 # Stage 4: Production Stage
+####################################
+
 FROM base AS production
 
 ENV APP_ENV=production

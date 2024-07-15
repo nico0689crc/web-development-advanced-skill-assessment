@@ -60,7 +60,7 @@
                         </div>
 
                         <div class="flex flex-col gap-1 col-span-4">
-                            <x-input-label for="professional_summary" :value="__('Professional Summary')" />
+                            <x-input-label for="professional_summary" :value="__('Professional summary')" />
                             <x-text-area id="professional_summary" name="professional_summary" type="text" class="w-full" :value="old('professional_summary')" />
                             <x-input-error :messages="$errors->get('professional_summary')" class="mt-2" />
                         </div>

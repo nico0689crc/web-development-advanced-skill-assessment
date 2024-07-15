@@ -16,10 +16,10 @@
                         {{ __('Home') }}
                     </x-nav-link>
                     <x-nav-link :href="route('about-us')" :active="request()->routeIs('about-us')">
-                        {{ __('About Us') }}
+                        {{ __('About us') }}
                     </x-nav-link>
                     <x-nav-link :href="route('members.create')" :active="request()->routeIs('members.create')">
-                        {{ __('New Member') }}
+                        {{ __('New member') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -77,10 +77,10 @@
                 {{ __('Home') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('about-us')" :active="request()->routeIs('about-us')">
-                {{ __('About Us') }}
+                {{ __('About us') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('members.create')" :active="request()->routeIs('members.create')">
-                {{ __('New Member') }}
+                {{ __('New member') }}
             </x-responsive-nav-link>
         </div>
 
