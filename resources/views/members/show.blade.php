@@ -1,10 +1,11 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Show Member') }}
-        </h2>
-    </x-slot>
-
+    @if(Auth::user()->isAdministrator())
+        <x-slot name="header">
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                {{ __('Show Member') }}
+            </h2>
+        </x-slot>
+    @endif
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -22,17 +23,18 @@
                                 <x-dropdown-link :href="route('members.edit', $member->uuid)">
                                     {{ __('Edit') }}
                                 </x-dropdown-link>
-        
-                                <!-- Authentication -->
-                                <form method="POST" action="{{ route('members.destroy', $member->uuid) }}">
-                                    @csrf
-                                    @method('DELETE')
-                                    <x-dropdown-link :href="route('members.destroy', $member->uuid)"
-                                            onclick="event.preventDefault();
-                                                        this.closest('form').submit();">
-                                        {{ __('Delete') }}
-                                    </x-dropdown-link>
-                                </form>
+                                
+                                @if(Auth::user()->isAdministrator())
+                                    <form method="POST" action="{{ route('members.destroy', $member->uuid) }}">
+                                        @csrf
+                                        @method('DELETE')
+                                        <x-dropdown-link :href="route('members.destroy', $member->uuid)"
+                                                onclick="event.preventDefault();
+                                                            this.closest('form').submit();">
+                                            {{ __('Delete') }}
+                                        </x-dropdown-link>
+                                    </form>
+                                @endif
                             </x-slot>
                         </x-dropdown>
                     </div>

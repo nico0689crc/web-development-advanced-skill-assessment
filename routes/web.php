@@ -11,7 +11,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/about-us', [AboutUsController::class, 'index'])->name('about-us');
 
     Route::prefix('members')->group(function () {
-        Route::get('/', [MemberController::class, 'index'])->name('members.index'); // GET request for listing members
+        Route::redirect('/', '/');
+        
         Route::get('/create', [MemberController::class, 'create'])->name('members.create'); // GET request for create form
         Route::post('/', [MemberController::class, 'store'])->name('members.store'); // POST request for storing a new member
         Route::get('/{uuid}', [MemberController::class, 'showByUuid'])->name('members.show'); // GET request for showing a member by UUID

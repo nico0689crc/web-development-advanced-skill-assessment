@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Member extends Model
 {
@@ -17,7 +18,7 @@ class Member extends Model
         'uuid',
     ];
 
-        /**
+    /**
      * Boot function from Laravel.
      */
     protected static function boot()
@@ -27,7 +28,7 @@ class Member extends Model
         // Automatically generate a UUID for new members
         static::creating(function ($model) {
             if (empty($model->uuid)) {
-                $model->uuid = (string) \Illuminate\Support\Str::uuid();
+                $model->uuid = (string) Str::uuid();
             }
         });
     }

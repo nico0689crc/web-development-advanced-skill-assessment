@@ -1,9 +1,11 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-indigo-800 leading-tight">
-            {{ __('Edit member') }}
-        </h2>
-    </x-slot>
+    @if(Auth::user()->isAdministrator())
+        <x-slot name="header">
+            <h2 class="font-semibold text-xl text-indigo-800 leading-tight">
+                {{ __('Edit member') }}
+            </h2>
+        </x-slot>
+    @endif
 
     <div class="py-12">
         <div class="max-w-7xl mx-4 sm:mx-auto sm:px-6 lg:px-8 space-y-6">
@@ -12,12 +14,9 @@
                 <section class="flex flex-col gap-4">
                     <header>
                         <h2 class="text-lg font-medium text-indigo-700">
-                            {{ __('Edit member') }}
+                            {{ __('Edit') }}
                         </h2>
                 
-                        <p class="mt-1 text-sm text-gray-600">
-                            {{ __('Edit a member into our system.') }}
-                        </p>
                     </header>
                 
                     <form method="post" action="{{ route('members.update', $member->uuid) }}" class="grid grid-cols-4 gap-4">
@@ -36,16 +35,10 @@
                             <x-input-error :messages="$errors->get('last_name')" class="mt-2" />
                         </div>
 
-                        <div class="flex flex-col gap-1 col-span-4">
+                        <div class="flex flex-col gap-1 col-span-4 md:col-span-2">
                             <x-input-label for="address" :value="__('Address')" />
                             <x-text-input id="address" name="address" type="text" class="w-full" value="{{ old('address', $member->address) }}" />
                             <x-input-error :messages="$errors->get('address')" class="mt-2" />
-                        </div>
-
-                        <div class="flex flex-col gap-1 col-span-4 md:col-span-2">
-                            <x-input-label for="email" :value="__('Email')" />
-                            <x-text-input id="email" name="email" type="email" class="w-full" value="{{ old('email', $member->user->email) }}" />
-                            <x-input-error :messages="$errors->get('email')" class="mt-2" />
                         </div>
 
                         <div class="flex flex-col gap-1 col-span-4 md:col-span-1">

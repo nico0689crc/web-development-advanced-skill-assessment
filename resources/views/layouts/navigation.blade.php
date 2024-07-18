@@ -18,7 +18,7 @@
                     <x-nav-link :href="route('about-us')" :active="request()->routeIs('about-us')">
                         {{ __('About us') }}
                     </x-nav-link>
-                    @if(auth()->user()->hasRole('administrator'))
+                    @if(Auth::user()->isAdministrator())
                         <x-nav-link :href="route('members.create')" :active="request()->routeIs('members.create')">
                             {{ __('New member') }}
                         </x-nav-link>
@@ -31,7 +31,7 @@
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-indigo-500 bg-white hover:text-indigo-700 focus:outline-none transition ease-in-out duration-150">
-                            <div>{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</div>
+                            <div>{{ Auth::user()->getFullName() }}</div>
 
                             <div class="ms-1">
                                 <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -81,15 +81,17 @@
             <x-responsive-nav-link :href="route('about-us')" :active="request()->routeIs('about-us')">
                 {{ __('About us') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('members.create')" :active="request()->routeIs('members.create')">
-                {{ __('New member') }}
-            </x-responsive-nav-link>
+            @if(Auth::user()->isAdministrator())
+                <x-responsive-nav-link :href="route('members.create')" :active="request()->routeIs('members.create')">
+                    {{ __('New member') }}
+                </x-responsive-nav-link>
+            @endif
         </div>
 
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-indigo-200">
             <div class="px-4">
-                <div class="font-medium text-base text-indigo-800">{{ Auth::user()->name }}</div>
+                <div class="font-medium text-base text-indigo-800">{{ Auth::user()->getFullName() }}</div>
                 <div class="font-medium text-sm text-indigo-500">{{ Auth::user()->email }}</div>
             </div>
 

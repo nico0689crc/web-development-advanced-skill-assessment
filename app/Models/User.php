@@ -46,4 +46,19 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function isAdministrator()
+    {
+        return $this->hasRole('administrator');
+    }
+
+    public function getFullName()
+    {
+        return $this->first_name ." ". $this->last_name;
+    }
+
+    public function member()
+    {
+        return $this->hasOne(Member::class);
+    }
 }
