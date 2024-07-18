@@ -26,13 +26,13 @@
 
                         <div class="flex flex-col gap-1 col-span-4 md:col-span-2">
                             <x-input-label for="first_name" :value="__('First name')" />
-                            <x-text-input id="first_name" name="first_name" type="text" class="w-full" value="{{ old('first_name', $member->first_name) }}" />
+                            <x-text-input id="first_name" name="first_name" type="text" class="w-full" value="{{ old('first_name', $member->user->first_name) }}" />
                             <x-input-error :messages="$errors->get('first_name')" class="mt-2" />
                         </div>
 
                         <div class="flex flex-col gap-1 col-span-4 md:col-span-2">
                             <x-input-label for="last_name" :value="__('Last name')" />
-                            <x-text-input id="last_name" name="last_name" type="text" class="w-full" value="{{ old('last_name', $member->last_name) }}" />
+                            <x-text-input id="last_name" name="last_name" type="text" class="w-full" value="{{ old('last_name', $member->user->last_name) }}" />
                             <x-input-error :messages="$errors->get('last_name')" class="mt-2" />
                         </div>
 
@@ -44,7 +44,7 @@
 
                         <div class="flex flex-col gap-1 col-span-4 md:col-span-2">
                             <x-input-label for="email" :value="__('Email')" />
-                            <x-text-input id="email" name="email" type="email" class="w-full" value="{{ old('email', $member->email) }}" />
+                            <x-text-input id="email" name="email" type="email" class="w-full" value="{{ old('email', $member->user->email) }}" />
                             <x-input-error :messages="$errors->get('email')" class="mt-2" />
                         </div>
 

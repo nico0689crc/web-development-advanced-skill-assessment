@@ -10,10 +10,7 @@ class Member extends Model
     use HasFactory;
 
     protected $fillable = [
-        'first_name',
-        'last_name',
         'age',
-        'email',
         'phone',
         'address',
         'professional_summary',
@@ -33,5 +30,10 @@ class Member extends Model
                 $model->uuid = (string) \Illuminate\Support\Str::uuid();
             }
         });
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

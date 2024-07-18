@@ -10,14 +10,14 @@ class CreateMembersTable extends Migration
     {
         Schema::create('members', function (Blueprint $table) {
             $table->id();
-            $table->string('first_name');
-            $table->string('last_name');
+            $table->unsignedBigInteger('user_id')->unique();
             $table->integer('age');
-            $table->string('email')->unique();
             $table->string('phone');
             $table->string('address');
             $table->text('professional_summary');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

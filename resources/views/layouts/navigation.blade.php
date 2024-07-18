@@ -18,9 +18,11 @@
                     <x-nav-link :href="route('about-us')" :active="request()->routeIs('about-us')">
                         {{ __('About us') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('members.create')" :active="request()->routeIs('members.create')">
-                        {{ __('New member') }}
-                    </x-nav-link>
+                    @if(auth()->user()->hasRole('administrator'))
+                        <x-nav-link :href="route('members.create')" :active="request()->routeIs('members.create')">
+                            {{ __('New member') }}
+                        </x-nav-link>
+                    @endif
                 </div>
             </div>
 
@@ -29,7 +31,7 @@
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-indigo-500 bg-white hover:text-indigo-700 focus:outline-none transition ease-in-out duration-150">
-                            <div>{{ Auth::user()->name }}</div>
+                            <div>{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</div>
 
                             <div class="ms-1">
                                 <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">

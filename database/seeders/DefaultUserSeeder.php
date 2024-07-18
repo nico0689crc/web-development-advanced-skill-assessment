@@ -20,12 +20,14 @@ class DefaultUserSeeder extends Seeder
         $user = User::where('email', $email)->first();
 
         if(!$user){
-            User::factory()->create([
-                'name' => $userName,
+            $new_user = User::factory()->create([
+                'first_name' => $userName,
                 'email' => $email,
                 'email_verified_at' => now(),
                 'password' => $password
             ]);
+
+            $new_user->assignRole('administrator');
         }
     }
 }

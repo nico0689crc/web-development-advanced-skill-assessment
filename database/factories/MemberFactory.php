@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\User;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Member>
@@ -17,13 +18,11 @@ class MemberFactory extends Factory
     public function definition(): array
     {
         return [
-            'first_name' => $this->faker->firstName,
-            'last_name' => $this->faker->lastName,
-            'age' => $this->faker->numberBetween(18, 99),
-            'email' => $this->faker->unique()->safeEmail,
+            'user_id' => User::factory(),
+            'age' => $this->faker->numberBetween(18, 65),
             'phone' => $this->faker->phoneNumber,
             'address' => $this->faker->address,
-            'professional_summary' => $this->faker->paragraph
+            'professional_summary' => $this->faker->paragraph,
         ];
     }
 }

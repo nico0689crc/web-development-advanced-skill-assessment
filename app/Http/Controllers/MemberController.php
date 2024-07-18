@@ -11,7 +11,8 @@ class MemberController extends Controller
     public function index()
     {
         $members = Member::paginate(9);
-        return view('members.index', compact('members'));
+        $user = auth()->user();
+        return view('members.index', compact(['members','user']));
     }
 
     public function create()

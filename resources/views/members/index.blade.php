@@ -19,7 +19,7 @@
                         <div class="flex flex-col gap-2">
                             <div class="flex items-center">
                                 <a class="flex-grow text-xl font-bold line-clamp-1" href={{route('members.show', $member->uuid)}}>
-                                    <h2 class="text-indigo-600 underline">{{ $member->first_name }} {{ $member->last_name }}</h2>
+                                    <h2 class="text-indigo-600 underline">{{ $member->user->first_name }} {{ $member->user->last_name }}</h2>
                                 </a>
                                 <x-dropdown align="right" width="48">
                                     <x-slot name="trigger">
@@ -56,7 +56,7 @@
                             </div>
                             <div class="flex flex-col gap-1">
                                 <span class="text-base font-medium">Email</span>
-                                <p class="text-base text-gray-600 line-clamp-1">{{ $member->email }}</p>
+                                <p class="text-base text-gray-600 line-clamp-1">{{ $member->user->email }}</p>
                             </div>
                             <div class="flex flex-col gap-1">
                                 <span class="text-base font-medium">Phone</span>
