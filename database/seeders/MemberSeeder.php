@@ -15,7 +15,7 @@ class MemberSeeder extends Seeder
     {
         $memberCount = Member::count();
         
-        if($memberCount == 0 && app()->environment('local'))
+        if($memberCount == 0 && app()->environment('production'))
         {
             Member::factory()->count(100)->create();
         }
