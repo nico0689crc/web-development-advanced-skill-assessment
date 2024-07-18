@@ -13,18 +13,15 @@ class DefaultUserSeeder extends Seeder
      */
     public function run(): void
     {   
-        $userName = env('APPLICATION_USERNAME');
-        $email = env('APPLICATION_EMAIL');
-        $password = env('APPLICATION_PASSWORD');
-
-        $user = User::where('email', $email)->first();
+        $user = User::where('email', env('APPLICATION_ADMIN_EMAIL'))->first();
 
         if(!$user){
             $new_user = User::factory()->create([
-                'first_name' => $userName,
-                'email' => $email,
+                'first_name' => env('APPLICATION_ADMIN_FIRST_NAME'),
+                'last_name' => env('APPLICATION_ADMIN_LAST_NAME'),
+                'email' => env('APPLICATION_ADMIN_EMAIL'),
                 'email_verified_at' => now(),
-                'password' => $password
+                'password' => env('APPLICATION_PASSWORD')
             ]);
 
             $new_user->assignRole('administrator');

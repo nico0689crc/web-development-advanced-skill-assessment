@@ -8,7 +8,7 @@
         <!-- Email Address -->
         <div>
             <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" value="{{env('APPLICATION_EMAIL')}}" required autofocus autocomplete="username" />
+            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" value="{{env('APPLICATION_ADMIN_EMAIL')}}" required autofocus autocomplete="username" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
@@ -45,4 +45,10 @@
             </x-primary-button>
         </div>
     </form>
+    <div class="flex flex-col py-4">
+        <p><b>Administrator's email:</b> {{ env('APPLICATION_ADMIN_EMAIL') }}</p>    
+        <p><b>Administrator's password:</b> {{ env('APPLICATION_PASSWORD') }}</p>    
+        <p><b>Member's email:</b> {{ env('APPLICATION_MEMBER_EMAIL') }}</p>    
+        <p><b>Member's password:</b> {{ env('APPLICATION_PASSWORD') }}</p>    
+    </div> 
 </x-guest-layout>

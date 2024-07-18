@@ -27,12 +27,20 @@ class MemberController extends Controller
     }
 
     public function create()
-    {
+    {   
+        if (!auth()->user()->can('create', Member::class)) {
+            abort(404);
+        }
+
         return view('members.create');
     }
 
     public function store(Request $request)
     {
+        if (!auth()->user()->can('create', Member::class)) {
+            abort(404);
+        }
+
         $request->validate([
             'first_name' => 'required',
             'last_name' => 'required',
@@ -49,6 +57,8 @@ class MemberController extends Controller
             'email' => $request->email,
             'password' => Hash::make(env('APPLICATION_PASSWORD')),
         ]);
+
+        $user->assignRole('member');
 
         event(new Registered($user));
 
@@ -69,11 +79,22 @@ class MemberController extends Controller
     public function edit($uuid)
     {
         $member = Member::where('uuid', $uuid)->firstOrFail();
+
+        if (!auth()->user()->can('update', $member)) {
+            abort(404);
+        }
+
         return view('members.edit', compact('member'));
     }
 
     public function update(Request $request, $uuid)
     {
+        $member = Member::where('uuid', $uuid)->firstOrFail();
+
+        if (!auth()->user()->can('update', $member)) {
+            abort(404);
+        }
+
         $request->validate([
             'first_name' => 'required',
             'last_name' => 'required',
@@ -83,8 +104,6 @@ class MemberController extends Controller
             'professional_summary' => 'required',
         ]);
 
-        
-        $member = Member::where('uuid', $uuid)->firstOrFail();
         $user = User::where('id', $member->user_id)->firstOrFail();
 
         $member->update($request->all());
@@ -96,6 +115,11 @@ class MemberController extends Controller
     public function destroy($uuid)
     {
         $member = Member::where('uuid', $uuid)->firstOrFail();
+        
+        if (!auth()->user()->can('delete', $member)) {
+            abort(404);
+        }
+
         $member->delete();
 
         return redirect()->route('members.index')->with('success', 'Member deleted successfully.');
