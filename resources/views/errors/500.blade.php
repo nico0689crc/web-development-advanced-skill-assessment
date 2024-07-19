@@ -6,7 +6,7 @@
             Oops, something went wrong on our end. Please try again later.
         </p>
         <a href="{{ url('/') }}" class="text-indigo-600 hover:underline">
-            Go to Homepage
+            Go to Home
         </a>
       </div>
   </div>
