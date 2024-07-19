@@ -72,6 +72,10 @@ class MemberController extends Controller
 
     public function showByUuid($uuid)
     {
+        if (!auth()->user()->can('update', $member)) {
+            abort(404);
+        }
+        
         $member = Member::where('uuid', $uuid)->firstOrFail();
         return view('members.show', compact('member'));
     }
