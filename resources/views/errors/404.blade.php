@@ -1,9 +1,13 @@
 <x-app-layout>
-  <div class="py-12">
-      <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-          <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
-            404 - PAGE NOT FOUND. {{ Auth::user()->can('create') }}
-          </div>
+  <div class="bg-gray-100 flex items-center justify-center h-screen">
+      <div class="text-center">
+          <h1 class="text-9xl font-bold text-indigo-600">404</h1>
+          <p class="text-2xl md:text-3xl font-light text-gray-800 mb-4">
+              Sorry, the page you are looking for could not be found.
+          </p>
+          <a href="{{ url('/') }}" class="text-indigo-600 hover:underline">
+              Go to Home
+          </a>
       </div>
   </div>
 </x-app-layout>
