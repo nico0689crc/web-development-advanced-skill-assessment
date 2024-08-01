@@ -19,12 +19,11 @@ class DefaultUserSeeder extends Seeder
             $new_user = User::factory()->create([
                 'first_name' => env('APPLICATION_ADMIN_FIRST_NAME'),
                 'last_name' => env('APPLICATION_ADMIN_LAST_NAME'),
+                'role' => 'administrator',
                 'email' => env('APPLICATION_ADMIN_EMAIL'),
                 'email_verified_at' => now(),
-                'password' => env('APPLICATION_PASSWORD')
+                'password' => env('APPLICATION_PASSWORD'),
             ]);
-
-            $new_user->assignRole('administrator');
         }
     }
 }
