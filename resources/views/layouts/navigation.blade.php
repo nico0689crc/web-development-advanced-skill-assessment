@@ -23,6 +23,9 @@
                             {{ __('New member') }}
                         </x-nav-link>
                     @endif
+                    <x-nav-link :href="route('events')" :active="request()->routeIs('events')">
+                        {{ __('Events') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -86,6 +89,9 @@
                     {{ __('New member') }}
                 </x-responsive-nav-link>
             @endif
+            <x-responsive-nav-link :href="route('events')" :active="request()->routeIs('events')">
+                {{ __('Events') }}
+            </x-responsive-nav-link>
         </div>
 
         <!-- Responsive Settings Options -->
