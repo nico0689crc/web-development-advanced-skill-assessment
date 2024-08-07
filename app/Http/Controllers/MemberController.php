@@ -55,12 +55,9 @@ class MemberController extends Controller
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'email' => $request->email,
+            'role' => 'member',
             'password' => Hash::make(env('APPLICATION_PASSWORD')),
         ]);
-
-        $user->assignRole('member');
-
-        event(new Registered($user));
 
         $member = new Member($request->all());
         $member->uuid = Str::uuid();
