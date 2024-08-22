@@ -21,11 +21,11 @@
                                 </x-slot>
             
                                 <x-slot name="content">
-                                    <x-dropdown-link :href="route('members.show', $member->uuid)">
+                                    <x-dropdown-link :href="route('members.show', ['uuid' => $member->uuid, 'token' => $token])">
                                         {{ __('Show') }}
                                     </x-dropdown-link>
 
-                                    <x-dropdown-link :href="route('members.edit', $member->uuid)">
+                                    <x-dropdown-link :href="route('members.edit', ['uuid' => $member->uuid, 'token' => $token])">
                                         {{ __('Edit') }}
                                     </x-dropdown-link>
             
@@ -33,6 +33,7 @@
                                     <form method="POST" action="{{ route('members.destroy', $member->uuid) }}">
                                         @csrf
                                         @method('DELETE')
+                                        <input type="hidden" value={{ $token }} name="token">
                                         <x-dropdown-link :href="route('members.destroy', $member->uuid)"
                                                 onclick="event.preventDefault();
                                                             this.closest('form').submit();">
@@ -65,11 +66,6 @@
                     </x-card>
                 @endforeach
             </x-grid-card>
-
-            <!-- Agregar Paginación -->
-            <div class="mt-6">
-                {{ $members->links() }}
-            </div>
         </div>
     </div>
 </x-app-layout>

@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-error-layout :$token>
   <div class="bg-gray-100 flex items-center justify-center h-screen">
       <div class="text-center">
         <h1 class="text-9xl font-bold text-indigo-600">500</h1>
@@ -10,4 +10,4 @@
         </a>
       </div>
   </div>
-</x-app-layout>
+</x-error-layout>

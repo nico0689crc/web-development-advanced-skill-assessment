@@ -1,4 +1,4 @@
-@props(['token', 'user'])
+@props(['token'])
 
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
@@ -18,8 +18,6 @@
     </head>
     <body class="font-sans antialiased min-h-screen flex flex-col">
         <div class="bg-gray-100 flex-grow">
-            @include('layouts.navigation')
-            <!-- Page Content -->
             <main>
                 {{ $slot }}
             </main>

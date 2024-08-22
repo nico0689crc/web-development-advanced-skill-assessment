@@ -22,7 +22,7 @@ class MemberController extends Controller
             return view('members.show', compact('member', 'user', 'token'));
         }
 
-        $members = Member::paginate(9);
+        $members = Member::all();
         
         return view('members.index', compact(['members','user', 'token']));
     }
@@ -88,22 +88,26 @@ class MemberController extends Controller
         return view('members.show', compact(['member', 'user', 'token']));
     }
 
-    public function edit($uuid)
+    public function edit(Request $request, $uuid)
     {
         $member = Member::where('uuid', $uuid)->firstOrFail();
+        $user = $request->authenticated_user;
+        $token = $request->get('token');
 
-        if (!auth()->user()->can('update', $member)) {
+        if (!$user->can('update', $member)) {
             abort(404);
         }
 
-        return view('members.edit', compact('member'));
+        return view('members.edit', compact(['member', 'user', 'token']));
     }
 
     public function update(Request $request, $uuid)
     {
         $member = Member::where('uuid', $uuid)->firstOrFail();
+        $user = $request->authenticated_user;
+        $token = $request->get('token');
 
-        if (!auth()->user()->can('update', $member)) {
+        if (!$user->can('update', $member)) {
             abort(404);
         }
 
@@ -121,19 +125,21 @@ class MemberController extends Controller
         $member->update($request->all());
         $user->update($request->all());
 
-        return redirect()->route('members.index')->with('success', 'Member updated successfully.');
+        return redirect()->route('members.index', ['token' => $token])->with('success', 'Member updated successfully.');
     }
 
-    public function destroy($uuid)
+    public function destroy(Request $request, $uuid)
     {
         $member = Member::where('uuid', $uuid)->firstOrFail();
+        $user = $request->authenticated_user;
+        $token = $request->get('token');
         
-        if (!auth()->user()->can('delete', $member)) {
+        if (!$user->can('delete', $member)) {
             abort(404);
         }
 
         $member->delete();
 
-        return redirect()->route('members.index')->with('success', 'Member deleted successfully.');
+        return redirect()->route('members.index', ['token' => $token])->with('success', 'Member deleted successfully.');
     }
 }
