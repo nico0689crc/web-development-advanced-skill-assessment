@@ -12,6 +12,8 @@ class Handler extends ExceptionHandler
 {
     public function render($request, Throwable $exception)
     {
+        $user = $request->authenticated_user;
+        $token = $request->get('token');
         if ($exception instanceof NotFoundHttpException) {
             return response()->view('errors.404', [], 404);
         }

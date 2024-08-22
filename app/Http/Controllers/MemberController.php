@@ -11,33 +11,40 @@ use Illuminate\Support\Facades\Hash;
 
 class MemberController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $user = auth()->user();
+        $user = $request->authenticated_user;
+        $token = $request->get('token');
 
         if(!$user->isAdministrator())
         {
             $member = $user->member;
-            return view('members.show', compact('member'));
+            return view('members.show', compact('member', 'user', 'token'));
         }
 
         $members = Member::paginate(9);
         
-        return view('members.index', compact(['members','user']));
+        return view('members.index', compact(['members','user', 'token']));
     }
 
-    public function create()
+    public function create(Request $request)
     {   
-        if (!auth()->user()->can('create', Member::class)) {
+        $user = $request->authenticated_user;
+        $token = $request->get('token');
+
+        if (!$user->can('create', Member::class)) {
             abort(404);
         }
 
-        return view('members.create');
+        return view('members.create', compact(['user', 'token']));
     }
 
     public function store(Request $request)
     {
-        if (!auth()->user()->can('create', Member::class)) {
+        $user = $request->authenticated_user;
+        $token = $request->get('token');
+
+        if (!$user->can('create', Member::class)) {
             abort(404);
         }
 
@@ -64,19 +71,21 @@ class MemberController extends Controller
         $member->user_id = $user->id;
         $member->save();
 
-        return redirect()->route('members.index')->with('success', 'Member created successfully.');
+        return redirect()->route('members.index', ['token' => $token])->with('success', 'Member created successfully.');
     }
 
-    public function showByUuid($uuid)
-    {
+    public function showByUuid(Request $request, $uuid)
+    {   
         $member = Member::where('uuid', $uuid)->firstOrFail();
-        
-        if (!auth()->user()->can('update', $member)) {
+        $user = $request->authenticated_user;
+        $token = $request->get('token');
+
+        if (!$user->can('update', $member)) {
             abort(404);
         }
 
         $member = Member::where('uuid', $uuid)->firstOrFail();
-        return view('members.show', compact('member'));
+        return view('members.show', compact(['member', 'user', 'token']));
     }
 
     public function edit($uuid)

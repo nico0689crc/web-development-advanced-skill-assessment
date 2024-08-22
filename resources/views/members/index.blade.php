@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-app-layout :$token :$user>
     <div class="py-12">
         <div class="max-w-7xl mx-4 sm:mx-auto sm:px-6 lg:px-8 claaaaas">
             @if ($message = Session::get('success'))
@@ -6,12 +6,11 @@
                     <span class="block sm:inline">{{ $message }}</span>
                 </div>
             @endif
-
             <x-grid-card>
                 @foreach ($members as $member)
                     <x-card>
                         <div class="flex items-center">
-                            <a class="flex-grow text-xl font-bold line-clamp-1" href={{route('members.show', $member->uuid)}}>
+                            <a class="flex-grow text-xl font-bold line-clamp-1" href={{route('members.show', ['uuid' => $member->uuid, 'token' => $token])}}>
                                 <h2 class="text-indigo-600 underline">{{ $member->user->first_name }} {{ $member->user->last_name }}</h2>
                             </a>
                             <x-dropdown align="right" width="48">

@@ -1,29 +1,30 @@
 <nav x-data="{ open: false }" class="bg-white border-b border-indigo-100">
+
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('members.index') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-indigo-800" />
+                    <a href="{{ route('members.index', ['token' => $token]) }}">
+                        <x-application-logo class="block h-9 w-auto fill-current text-indigo-800" :$token/>
                     </a>
                 </div>
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('members.index')" :active="request()->routeIs('members.index')">
+                    <x-nav-link :href="route('members.index', ['token' => $token])" :active="request()->routeIs('members.index')">
                         {{ __('Home') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('about-us')" :active="request()->routeIs('about-us')">
+                    <x-nav-link :href="route('about-us', ['token' => $token])" :active="request()->routeIs('about-us')">
                         {{ __('About us') }}
                     </x-nav-link>
-                    @if(Auth::user()->isAdministrator())
-                        <x-nav-link :href="route('members.create')" :active="request()->routeIs('members.create')">
+                    @if($user->isAdministrator())
+                        <x-nav-link :href="route('members.create', ['token' => $token])" :active="request()->routeIs('members.create')">
                             {{ __('New member') }}
                         </x-nav-link>
                     @endif
-                    <x-nav-link :href="route('events')" :active="request()->routeIs('events')">
+                    <x-nav-link :href="route('events', ['token' => $token])" :active="request()->routeIs('events')">
                         {{ __('Events') }}
                     </x-nav-link>
                 </div>
@@ -34,7 +35,7 @@
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-indigo-500 bg-white hover:text-indigo-700 focus:outline-none transition ease-in-out duration-150">
-                            <div>{{ Auth::user()->getFullName() }}</div>
+                            <div>{{ $user->getFullName() }}</div>
 
                             <div class="ms-1">
                                 <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -45,16 +46,9 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        <!-- Authentication -->
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-
-                            <x-dropdown-link :href="route('logout')"
-                                    onclick="event.preventDefault();
-                                                this.closest('form').submit();">
-                                {{ __('Log Out') }}
-                            </x-dropdown-link>
-                        </form>
+                        <x-dropdown-link :href="route('logout', ['token' => $token])">
+                            {{ __('Log Out') }}
+                        </x-dropdown-link>
                     </x-slot>
                 </x-dropdown>
             </div>
@@ -80,7 +74,7 @@
             <x-responsive-nav-link :href="route('about-us')" :active="request()->routeIs('about-us')">
                 {{ __('About us') }}
             </x-responsive-nav-link>
-            @if(Auth::user()->isAdministrator())
+            @if($user->isAdministrator())
                 <x-responsive-nav-link :href="route('members.create')" :active="request()->routeIs('members.create')">
                     {{ __('New member') }}
                 </x-responsive-nav-link>
@@ -93,21 +87,14 @@
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-indigo-200">
             <div class="px-4">
-                <div class="font-medium text-base text-indigo-800">{{ Auth::user()->getFullName() }}</div>
-                <div class="font-medium text-sm text-indigo-500">{{ Auth::user()->email }}</div>
+                <div class="font-medium text-base text-indigo-800">{{ $user->getFullName() }}</div>
+                <div class="font-medium text-sm text-indigo-500">{{ $user->email }}</div>
             </div>
 
             <div class="mt-3 space-y-1">
-                <!-- Authentication -->
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-
-                    <x-responsive-nav-link :href="route('logout')"
-                            onclick="event.preventDefault();
-                                        this.closest('form').submit();">
-                        {{ __('Log Out') }}
-                    </x-responsive-nav-link>
-                </form>
+                <x-dropdown-link :href="route('logout', ['token' => $token])">
+                    {{ __('Log Out') }}
+                </x-dropdown-link>
             </div>
         </div>
     </div>

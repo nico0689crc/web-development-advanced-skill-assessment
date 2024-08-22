@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-app-layout :$token :$user>
   <div class="py-12">
       <div class="max-w-7xl mx-4 sm:mx-auto sm:px-6 lg:px-8">
           <x-grid-card>
