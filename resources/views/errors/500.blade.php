@@ -5,7 +5,7 @@
         <p class="text-2xl md:text-3xl font-light text-gray-800 mb-4">
             Oops, something went wrong on our end. Please try again later.
         </p>
-        <a href="{{ url('/') }}" class="text-indigo-600 hover:underline">
+        <a href={{route('members.index', ['token' => $token])}} class="text-indigo-600 hover:underline">
             Go to Home
         </a>
       </div>

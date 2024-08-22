@@ -23,8 +23,10 @@ return Application::configure(basePath: dirname(__DIR__))
             return response()->view('errors.404', ['token' => $token], 404);
         });
 
-
-        if ($exceptions instanceof HttpException && $exception->getStatusCode() === 500) {
-            return response()->view('errors.500', [], 500);
+        if ($exceptions instanceof HttpException && $exceptions->getStatusCode() === 500) {
+            $exceptions->render(function (HttpException $e, Request $request) {
+                $token = $request->get('token');
+                return response()->view('errors.500', ['token' => $token], 500);
+            });
         }
     })->create();
