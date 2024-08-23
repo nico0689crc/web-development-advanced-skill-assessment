@@ -68,18 +68,18 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('members.index')" :active="request()->routeIs('members.index')">
+            <x-responsive-nav-link :href="route('members.index', ['token' => $token])" :active="request()->routeIs('members.index')">
                 {{ __('Home') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('about-us')" :active="request()->routeIs('about-us')">
+            <x-responsive-nav-link :href="route('about-us', ['token' => $token])" :active="request()->routeIs('about-us')">
                 {{ __('About us') }}
             </x-responsive-nav-link>
             @if($user->isAdministrator())
-                <x-responsive-nav-link :href="route('members.create')" :active="request()->routeIs('members.create')">
+                <x-responsive-nav-link :href="route('members.create', ['token' => $token])" :active="request()->routeIs('members.create')">
                     {{ __('New member') }}
                 </x-responsive-nav-link>
             @endif
-            <x-responsive-nav-link :href="route('events')" :active="request()->routeIs('events')">
+            <x-responsive-nav-link :href="route('events', ['token' => $token])" :active="request()->routeIs('events')">
                 {{ __('Events') }}
             </x-responsive-nav-link>
         </div>
