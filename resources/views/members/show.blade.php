@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-app-layout :$token :$user>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -13,14 +13,15 @@
                             </x-slot>
         
                             <x-slot name="content">
-                                <x-dropdown-link :href="route('members.edit', $member->uuid)">
+                                <x-dropdown-link :href="route('members.edit', ['uuid' => $member->uuid, 'token' => $token])">
                                     {{ __('Edit') }}
                                 </x-dropdown-link>
                                 
-                                @if(Auth::user()->isAdministrator())
+                                @if($user->isAdministrator())
                                     <form method="POST" action="{{ route('members.destroy', $member->uuid) }}">
                                         @csrf
                                         @method('DELETE')
+                                        <input type="hidden" value={{ $token }} name="token">
                                         <x-dropdown-link :href="route('members.destroy', $member->uuid)"
                                                 onclick="event.preventDefault();
                                                             this.closest('form').submit();">

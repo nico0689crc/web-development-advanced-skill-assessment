@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-app-layout :$token :$user>
     <div class="py-12">
         <div class="max-w-7xl mx-4 sm:mx-auto sm:px-6 lg:px-8 space-y-6">
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
@@ -14,7 +14,7 @@
                     <form method="post" action="{{ route('members.update', $member->uuid) }}" class="grid grid-cols-4 gap-4">
                         @csrf
                         @method('PUT')
-
+                        <input type="hidden" value={{ $token }} name="token">
                         <div class="flex flex-col gap-1 col-span-4 md:col-span-2">
                             <x-input-label for="first_name" :value="__('First name')" />
                             <x-text-input id="first_name" name="first_name" type="text" class="w-full" value="{{ old('first_name', $member->user->first_name) }}" />

@@ -1,3 +1,1 @@
-<span class="text-2xl font-extrabold text-indigo-800">
-    CTC
-</span>
+<img width="100" src="{{ Vite::asset('resources/images/logo.png') }}" alt="Logo">

@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-app-layout :$token :$user>
     <div class="py-12">
         <div class="max-w-7xl mx-4 sm:mx-auto sm:px-6 lg:px-8 claaaaas">
             @if ($message = Session::get('success'))
@@ -6,12 +6,11 @@
                     <span class="block sm:inline">{{ $message }}</span>
                 </div>
             @endif
-
             <x-grid-card>
                 @foreach ($members as $member)
                     <x-card>
                         <div class="flex items-center">
-                            <a class="flex-grow text-xl font-bold line-clamp-1" href={{route('members.show', $member->uuid)}}>
+                            <a class="flex-grow text-xl font-bold line-clamp-1" href={{route('members.show', ['uuid' => $member->uuid, 'token' => $token])}}>
                                 <h2 class="text-indigo-600 underline">{{ $member->user->first_name }} {{ $member->user->last_name }}</h2>
                             </a>
                             <x-dropdown align="right" width="48">
@@ -22,11 +21,11 @@
                                 </x-slot>
             
                                 <x-slot name="content">
-                                    <x-dropdown-link :href="route('members.show', $member->uuid)">
+                                    <x-dropdown-link :href="route('members.show', ['uuid' => $member->uuid, 'token' => $token])">
                                         {{ __('Show') }}
                                     </x-dropdown-link>
 
-                                    <x-dropdown-link :href="route('members.edit', $member->uuid)">
+                                    <x-dropdown-link :href="route('members.edit', ['uuid' => $member->uuid, 'token' => $token])">
                                         {{ __('Edit') }}
                                     </x-dropdown-link>
             
@@ -34,6 +33,7 @@
                                     <form method="POST" action="{{ route('members.destroy', $member->uuid) }}">
                                         @csrf
                                         @method('DELETE')
+                                        <input type="hidden" value={{ $token }} name="token">
                                         <x-dropdown-link :href="route('members.destroy', $member->uuid)"
                                                 onclick="event.preventDefault();
                                                             this.closest('form').submit();">
@@ -66,11 +66,6 @@
                     </x-card>
                 @endforeach
             </x-grid-card>
-
-            <!-- Agregar Paginación -->
-            <div class="mt-6">
-                {{ $members->links() }}
-            </div>
         </div>
     </div>
 </x-app-layout>

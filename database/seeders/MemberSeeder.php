@@ -36,7 +36,7 @@ class MemberSeeder extends Seeder
             $member->user_id = $user->id;
             $member->save();
 
-            Member::factory()->count(100)->create();
+            Member::factory()->count(10)->create();
         }
     }
 }

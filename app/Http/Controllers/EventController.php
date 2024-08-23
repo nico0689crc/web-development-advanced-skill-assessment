@@ -7,10 +7,13 @@ use App\Models\Event;
 
 class EventController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $user = $request->authenticated_user;
+        $token = $request->get('token');
+
         $events = Event::all();
 
-        return view('events.index', compact('events'));
+        return view('events.index', compact('events', 'user', 'token'));
     }
 }

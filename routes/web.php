@@ -3,10 +3,11 @@
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\EventController;
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Auth\AuthenticatedController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\TokenMiddleware;
 
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware([TokenMiddleware::class])->group(function () {
     Route::get('/', [MemberController::class, 'index'])->name('members.index');
     
     Route::get('/about-us', [AboutUsController::class, 'index'])->name('about-us');
@@ -22,14 +23,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::put('/{uuid}', [MemberController::class, 'update'])->name('members.update'); 
         Route::delete('/{uuid}', [MemberController::class, 'destroy'])->name('members.destroy'); 
     });
+
+    Route::get('logout', [AuthenticatedController::class, 'destroy'])->name('logout');
 });
 
-Route::middleware('auth')->group(function () {
-    Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
-});
+Route::get('login', [AuthenticatedController::class, 'create'])->name('login');
+Route::post('login', [AuthenticatedController::class, 'store']);
 
-Route::middleware('guest')->group(function () {
-    Route::get('login', [AuthenticatedSessionController::class, 'create'])->name('login');
 
-    Route::post('login', [AuthenticatedSessionController::class, 'store']);
-});
+
+
+
